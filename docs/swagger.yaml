@@ -1,0 +1,114 @@
+basePath: /api/
+definitions:
+  request.InstiCodeRequest:
+    properties:
+      insti_code:
+        example: 100
+        type: integer
+    type: object
+  response.DashboardMenuResponse:
+    properties:
+      dashboard:
+        type: string
+      description:
+        type: string
+      enable:
+        type: integer
+      icon:
+        type: integer
+      insti_code:
+        type: integer
+      menu_item:
+        type: string
+      order:
+        type: integer
+      soon:
+        type: integer
+    type: object
+  response.KplusUponOpenResponse:
+    properties:
+      action:
+        type: string
+      created_by:
+        type: integer
+      created_date:
+        type: string
+      id:
+        type: integer
+      image_url:
+        type: string
+      last_updated_by:
+        type: integer
+      last_updated_date:
+        type: string
+      message:
+        type: string
+      redirect_link:
+        type: string
+      show:
+        type: string
+      sub_message:
+        type: string
+      title:
+        type: string
+    type: object
+  response.ResponseModel:
+    properties:
+      data: {}
+      message:
+        type: string
+      retCode:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    name: FDSAP Support
+  description: FDSAP swagger template
+  title: Fiber Example API
+  version: "1.0"
+paths:
+  /public/v1/dashboard/dashboardMenu:
+    post:
+      consumes:
+      - application/json
+      description: Provide the menu to show in kPLUS
+      parameters:
+      - description: Insti Code
+        in: body
+        name: getInstiCode
+        required: true
+        schema:
+          $ref: '#/definitions/request.InstiCodeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DashboardMenuResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      summary: DASHBOARD-MENU
+      tags:
+      - DASHBOARD
+  /public/v1/kplus/kplus_upon_open:
+    get:
+      description: Provide the data that will be used by kPLUS upon opening the application
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.KplusUponOpenResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ResponseModel'
+      summary: kPLUS UPON OPEN
+      tags:
+      - kPLUS
+swagger: "2.0"
